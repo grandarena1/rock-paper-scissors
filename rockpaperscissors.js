@@ -27,69 +27,71 @@ function getPlayerChoice()
     return playerChoice.toUpperCase();
 }
 
-function getPlayerScore()
-{
-    let playerScore = 0;
-    console.log(playerScore);
-    return playerScore;
-}
-
-function getComputerScore()
-{
-    let computerScore = 0;
-    console.log(computerScore);
-    return computerScore;
-}
+let playerScore = 0;
+let computerScore = 0;
+let winner;
 
 function playRound(playerSelection, computerSelection)
 {
     playerSelection = getPlayerChoice();
     computerSelection = getComputerChoice();
-    let winner;
 
-    if(getPlayerScore !== 5 || getComputerScore !== 5)
+    if(playerSelection === computerSelection)
     {
-        if(playerSelection === computerSelection)
+        winner = "TIE GAME!"
+    }
+    else if(playerSelection === "ROCK")
+    {
+        if(computerSelection === "PAPER")
         {
-            winner = "TIE GAME!"
+            winner = "You Lose! PAPER beats ROCK"
+            computerScore++;
         }
-        else if(playerSelection === "ROCK")
+        else if(computerSelection === "SCISSORS")
         {
-            if(computerSelection === "PAPER")
-            {
-                winner = "You Lose! PAPER beats ROCK"
-                getComputerScore++;
-            }
-            else if(computerSelection === "SCISSORS")
-            {
-                winner = "You win! ROCK beats SCISSORS"
-            }
+            winner = "You win! ROCK beats SCISSORS"
+            playerScore++;
         }
-        else if(playerSelection === "PAPER")
+    }
+    else if(playerSelection === "PAPER")
+    {
+        if(computerSelection === "ROCK")
         {
-            if(computerSelection === "ROCK")
-            {
-                winner = "You win! PAPER beats ROCK";
-            }
-            else if(computerSelection === "SCISSORS")
-            {
-                winner = "You lose! SCISSORS beats PAPER";
-            }
+            winner = "You win! PAPER beats ROCK";
+            playerScore++;
         }
-        else if(playerSelection === "SCISSORS")
+        else if(computerSelection === "SCISSORS")
         {
-            if(computerSelection === "ROCK")
-            {
-                winner = "You lose! ROCK beats SCISSORS";
-            }
-            else if(computerSelection === "PAPER")
-            {
-                winner = "You win! SCISSORS beats PAPER";
-            }
+            winner = "You lose! SCISSORS beats PAPER";
+            computerScore++;
+        }
+    }
+    else if(playerSelection === "SCISSORS")
+    {
+        if(computerSelection === "ROCK")
+        {
+            winner = "You lose! ROCK beats SCISSORS";
+            computerScore++;
+        }
+        else if(computerSelection === "PAPER")
+        {
+            winner = "You win! SCISSORS beats PAPER";
+            playerScore++;
         }
     }
 
-    return winner;
+    else if(playerScore > 4 && computerScore < 5)
+    {
+        winner = "Congratulations! You reached 5 points before the computer. YOU WIN!";
+    }
+    else if(computerScore > 4 && playerScore < 5)
+    {
+        winner = "Unlucky! The computer reached 5 points before you. YOU LOSE!";
+    }
+
+    console.log(`Your Score: ${playerScore} || Computer Score: ${computerScore}`);
+    alert(winner);
+    playRound();
 }
 
 /*
