@@ -19,6 +19,12 @@ function getComputerChoice()
     return choice;
 }
 
+function getPlayerChoice()
+{
+    const playerChoice = prompt("Please choose: ROCK, PAPER, or SCISSORS");
+    return playerChoice;
+}
+
 function playRound(playerSelection, computerSelection)
 {
     
