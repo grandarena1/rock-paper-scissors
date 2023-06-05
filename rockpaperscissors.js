@@ -16,18 +16,80 @@ function getComputerChoice()
             break;
     }
 
+    console.log(`Computer selected: ${choice}`);
     return choice;
 }
 
 function getPlayerChoice()
 {
     const playerChoice = prompt("Please choose: ROCK, PAPER, or SCISSORS");
-    return playerChoice;
+    console.log(`You selected: ${playerChoice.toUpperCase()}`);
+    return playerChoice.toUpperCase();
+}
+
+function getPlayerScore()
+{
+    let playerScore = 0;
+    console.log(playerScore);
+    return playerScore;
+}
+
+function getComputerScore()
+{
+    let computerScore = 0;
+    console.log(computerScore);
+    return computerScore;
 }
 
 function playRound(playerSelection, computerSelection)
 {
-    
+    playerSelection = getPlayerChoice();
+    computerSelection = getComputerChoice();
+    let winner;
+
+    if(getPlayerScore !== 5 || getComputerScore !== 5)
+    {
+        if(playerSelection === computerSelection)
+        {
+            winner = "TIE GAME!"
+        }
+        else if(playerSelection === "ROCK")
+        {
+            if(computerSelection === "PAPER")
+            {
+                winner = "You Lose! PAPER beats ROCK"
+                getComputerScore++;
+            }
+            else if(computerSelection === "SCISSORS")
+            {
+                winner = "You win! ROCK beats SCISSORS"
+            }
+        }
+        else if(playerSelection === "PAPER")
+        {
+            if(computerSelection === "ROCK")
+            {
+                winner = "You win! PAPER beats ROCK";
+            }
+            else if(computerSelection === "SCISSORS")
+            {
+                winner = "You lose! SCISSORS beats PAPER";
+            }
+        }
+        else if(playerSelection === "SCISSORS")
+        {
+            if(computerSelection === "ROCK")
+            {
+                winner = "You lose! ROCK beats SCISSORS";
+            }
+            else if(computerSelection === "PAPER")
+            {
+                winner = "You win! SCISSORS beats PAPER";
+            }
+        }
+    }
+
+    return winner;
 }
 
 /*
