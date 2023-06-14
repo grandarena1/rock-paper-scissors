@@ -1,3 +1,23 @@
+const rockBtn = document.getElementById('rock');
+const paperBtn = document.getElementById('paper');
+const scissorsBtn = document.getElementById('scissors');
+
+const winnerDiv = document.getElementById('winner-parent');
+
+rockBtn.addEventListener("click", function(choice) {getPlayerChoice('ROCK')});
+paperBtn.addEventListener("click", function(choice) {getPlayerChoice('PAPER')});
+scissorsBtn.addEventListener("click", function(choice) {getPlayerChoice('SCISSORS')});
+
+let playerChoice;
+
+function getPlayerChoice(choice)
+{
+    playerChoice = choice;
+    console.log(`You selected: ${choice.toUpperCase()}`);
+    playRound();
+    return choice.toUpperCase();
+}
+
 function getComputerChoice()
 {
     let randomDecision = Math.floor(Math.random() * 3) + 1;
@@ -20,91 +40,84 @@ function getComputerChoice()
     return choice;
 }
 
-function getPlayerChoice(choice)
-{
-    const playerChoice = choice;
-    console.log(`You selected: ${playerChoice.toUpperCase()}`);
-    return playerChoice.toUpperCase();
-}
+const scoreText = document.createElement('p');
+scoreText.setAttribute('id', 'score');
 
 let playerScore = 0;
 let computerScore = 0;
-let winner;
+const winnerH3 = document.getElementById('winner');
+scoreText.innerText = `Player score: ${playerScore}\n Computer score: ${computerScore}`;
 
-function playRound(playerSelection, computerSelection)
+function playRound()
 {
-    playerSelection = getPlayerChoice();
-    computerSelection = getComputerChoice();
+    const computerSelection = getComputerChoice();
 
-    if(playerSelection === computerSelection)
+    if(playerChoice === computerSelection)
     {
-        winner = "TIE GAME!"
+        winnerH3.innerText = "TIE GAME!"
     }
-    else if(playerSelection === "ROCK")
+    else if(playerChoice === "ROCK")
     {
         if(computerSelection === "PAPER")
         {
-            winner = "You Lose! PAPER beats ROCK"
+            winnerH3.innerText = "YOU LOSE!\n Computer chose PAPER\n\n PAPER beats ROCK"
             computerScore++;
         }
         else if(computerSelection === "SCISSORS")
         {
-            winner = "You win! ROCK beats SCISSORS"
+            winnerH3.innerText = "YOU WIN!\n Computer chose SCISSORS\n\n ROCK beats SCISSORS"
             playerScore++;
         }
     }
-    else if(playerSelection === "PAPER")
+    else if(playerChoice === "PAPER")
     {
         if(computerSelection === "ROCK")
         {
-            winner = "You win! PAPER beats ROCK";
+            winnerH3.innerText = "YOU WIN!\n Computer chose ROCK\n\n PAPER beats ROCK";
             playerScore++;
         }
         else if(computerSelection === "SCISSORS")
         {
-            winner = "You lose! SCISSORS beats PAPER";
+            winnerH3.innerText = "YOU LOSE!\n Computer chose SCISSORS\n\n SCISSORS beats PAPER";
             computerScore++;
         }
     }
-    else if(playerSelection === "SCISSORS")
+    else if(playerChoice === "SCISSORS")
     {
         if(computerSelection === "ROCK")
         {
-            winner = "You lose! ROCK beats SCISSORS";
+            winnerH3.innerText = "YOU LOSE!\n Computer chose ROCK\n\n ROCK beats SCISSORS";
             computerScore++;
         }
         else if(computerSelection === "PAPER")
         {
-            winner = "You win! SCISSORS beats PAPER";
+            winnerH3.innerText = "YOU WIN!\n Computer chose PAPER\n\n SCISSORS beats PAPER";
             playerScore++;
         }
     }
 
-    else if(playerScore > 4 && computerScore < 5)
+    if(playerScore > 4 && computerScore < 5)
     {
-        winner = "Congratulations! You reached 5 points before the computer. YOU WIN!";
+        winnerH3.innerText = "Congratulations! You reached 5 points before the computer. YOU WIN!\n Press reset to play again";
     }
     else if(computerScore > 4 && playerScore < 5)
     {
-        winner = "Unlucky! The computer reached 5 points before you. YOU LOSE!";
+        winnerH3.innerText = "Unlucky! The computer reached 5 points before you. YOU LOSE!\n Press reset to play again";
     }
 
     console.log(`Your Score: ${playerScore} || Computer Score: ${computerScore}`);
-    alert(winner);
-    playRound();
+    scoreText.innerText = `Player score: ${playerScore}\n Computer score: ${computerScore}`;
 }
 
-/*
-    1. Computer chooses at random, rock, paper, or scissors [x]
+winnerDiv.appendChild(scoreText);
 
-    2. User makes selection of rock, paper, or scissors
+const reset = document.getElementById('reset-btn');
+reset.addEventListener("click", resetScore)
 
-    3. Compare choices:
-        3a. If both choices are the same, its a draw.
-        3b. If the player chooses rock and the computer chooses scissors, player wins.
-        3c. If the player chooses rock and the computer chooses paper, computer wins.
-        3d. If the player chooses paper and the computer chooses rock, player wins.
-        3e. If the player chooses paper and the computer chooses scissors, computer wins.
-        3f. If the player chooses scissors and the computer chooses paper, player wins.
-        3g. If the player chooses scissors and the computer chooses rock, computer wins.
-*/
+function resetScore()
+{
+    playerScore = 0;
+    computerScore = 0;
+    winnerH3.innerText = "";
+    scoreText.innerText = `Player score: ${playerScore}\n Computer score: ${computerScore}`;
+}
