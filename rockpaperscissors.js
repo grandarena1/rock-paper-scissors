@@ -20,9 +20,9 @@ function getComputerChoice()
     return choice;
 }
 
-function getPlayerChoice()
+function getPlayerChoice(choice)
 {
-    const playerChoice = prompt("Please choose: ROCK, PAPER, or SCISSORS");
+    const playerChoice = choice;
     console.log(`You selected: ${playerChoice.toUpperCase()}`);
     return playerChoice.toUpperCase();
 }
